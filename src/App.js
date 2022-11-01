@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const UppercaseButton = (props) => (
-  <button {...props} children={props.children.toUpperCase()} />
-);
+function App() {
+  const [count, setCount] = useState(1);
+  const [name, setName] = useState("");
+  const handleCountUpdate = () => {
+    setCount(count + 1);
+  };
+  const handleInputChange = (e) => {
+    setName(e.target.value);
+  };
+  // 렌더링 될떄마다 매번 실행됨
+  useEffect(() => {
+    console.log("카운트랜더링");
+  }, [count]);
 
-
-  console.log("업데이트");
   return (
     <div>
-      
+      <button onClick={handleCountUpdate}>Update</button>
+      <span>count: {count}</span>
+      <input type="text" value={name} onChange={handleInputChange} />
+      <span> name: {name}</span>
     </div>
   );
 }
