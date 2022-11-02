@@ -1,25 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 
 function App() {
-  const [count, setCount] = useState(1);
-  const [name, setName] = useState("");
-  const handleCountUpdate = () => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+  console.log(countRef);
+  const increaseCountState = () => {
     setCount(count + 1);
   };
-  const handleInputChange = (e) => {
-    setName(e.target.value);
-  };
-  // 렌더링 될떄마다 매번 실행됨
-  useEffect(() => {
-    console.log("카운트랜더링");
-  }, [count]);
 
+  const increaseCountRef = () => {
+    countRef.current = countRef.current + 1;
+  };
   return (
     <div>
-      <button onClick={handleCountUpdate}>Update</button>
-      <span>count: {count}</span>
-      <input type="text" value={name} onChange={handleInputChange} />
-      <span> name: {name}</span>
+      <p>State: {count}</p>
+      <p>Ref: {countRef.current}</p>
+      <button onClick={increaseCountState}>State up!</button>
+      <button onClick={increaseCountRef}>Ref up!</button>
     </div>
   );
 }
